@@ -14,5 +14,5 @@ new Vue({
   router,
   store,
   render: h => h(App),
-  mounted: store.dispatch('COLLECT_PROJECTS')
+  mounted () { store.dispatch('COLLECT_PROJECTS') }
 }).$mount('#app')

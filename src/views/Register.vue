@@ -15,13 +15,9 @@
         <input type="text" placeholder="Enter firstname" required>
         <input type="text" placeholder="Enter lastname" required>
         <input type="email" placeholder="Enter email" required>
-        <input type="password" placeholder="Enter password" required>
+        <input type="password" placeholder="Enter password" minlength="6" required>
         <input type="text" placeholder="Enter phonenumber">
         <input type="text" placeholder="Enter country">
-        <label>Upload profile picture
-        <input type="file" >
-        </label>
-        <textarea cols="30" rows="5" placeholder="Introduce yourself"></textarea>
         <button>Register</button>
       </form>
       </div>

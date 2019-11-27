@@ -1,6 +1,7 @@
 <template>
   <div class="projects">
-    <Filter />
+    <FilterSection />
+    <SortSection />
     <div class="projects-container">
     <div class="project" v-for="project of $store.state.projectModule.projects" :key="project._id">
         <div class="project-photo"></div>
@@ -23,19 +24,25 @@
   </div>
 </template>
 <script>
-import Filter from '@/components/Filter.vue'
+// cannot use Filter, because not works
+import FilterSection from '../components/FilterSection.vue'
+import SortSection from '../components/SortSection.vue'
 // Make:
 /**
  * Pagination
  * model when click on project from main page, show all project data
  * make sort and filter
  *
+ * Can take state and filter or sort
+ *
  * Optional:
  * Make mobile
  */
 export default {
+  name: 'projects',
   components: {
-    Filter
+    FilterSection,
+    SortSection
   }
 }
 </script>
