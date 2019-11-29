@@ -1,14 +1,21 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Login</router-link> |
-      <router-link to="/register">Register</router-link> |
-      <router-link to="/projects">Projects</router-link> |
-    </div>
+     <LogedInNav />
     <router-view/>
+    <Footer />
   </div>
 </template>
+<script>
+import LogedInNav from './components/LogedinNav.vue'
+import Footer from './components/Footer.vue'
 
+export default {
+  components: {
+    LogedInNav,
+    Footer
+  }
+}
+</script>
 <style lang="scss">
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;

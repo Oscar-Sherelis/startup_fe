@@ -2,8 +2,6 @@
   <div class="register">
     <modals-container />
     <v-dialog />
-    <h1>This is an about page</h1>
-    <button @click="show()">Show modal</button>
     <modal name="register-modal" adaptive="true" height="100%">
       <span id="close">X</span>
       <div class="modal-content">
@@ -37,11 +35,6 @@ export default {
         country: '',
         profileImage: ''
       }
-    }
-  },
-  methods: {
-    show () {
-      this.$modal.show('register-modal')
     }
   }
 }

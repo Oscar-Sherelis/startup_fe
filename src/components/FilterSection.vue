@@ -6,26 +6,90 @@
           <div class="form-wrapper">
             <h3>Select filter criterias</h3>
           <form>
-              <select>
+              <select @change="takeOptionValue(selectedArea, projectArea, $event)">
                 <option selected>Project area</option>
+                <option v-for="area of areas" :key="area.id" :value="area">{{ area }}</option>
               </select>
-              <select>
+              <select @change="takeOptionValue(selectedProfession, $event)">
                 <option selected>Available positions</option>
+                <option v-for="profession of professions" :key="profession.id" :value="selectedProfession = profession">{{ profession }}</option>
               </select>
-              <select>
+              <select @change="takeOptionValue(selectedLocation, projectLocation, $event)">
                 <option selected>Location</option>
+                <option v-for="location of locations" :key="location.id" :value="selectedLocation = location">{{ location }}</option>
               </select>
-              <button>Filter</button>
+              <button @click.prevent="runFilter()">Filter</button>
           </form>
           </div>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 // https://stackoverflow.com/questions/43839066/how-can-i-set-selected-option-selected-in-vue-js-2
-export default {}
+export default {
+  data () {
+    return {
+      areas: [],
+      professions: [],
+      locations: [],
+
+      selectedArea: '',
+      selectedProfession: '',
+      selectedLocation: '',
+
+      filterValues: []
+    }
+  },
+  // distinct in js: https://codeburst.io/javascript-array-distinct-5edc93501dc4
+  methods: {
+    distinctAreas: function (mainArr) {
+      this.areas = [...new Set(mainArr.map(x => x.projectArea))]
+    },
+    distinctProfessions: function (mainArr) {
+      let dataHolder = []
+      mainArr.forEach(element => {
+        dataHolder.push(...new Set(element.professionalsNeeded))
+      })
+      this.professions = [...new Set(dataHolder)]
+    },
+    distinctLocations: function (mainArr) {
+      this.locations = [...new Set(mainArr.map(x => x.projectLocation))]
+    },
+    takeOptionValue: function (dataProperty, objectProperty, event) {
+      dataProperty = event.target.value
+      this.filterValues.push({ objectProperty: dataProperty })
+    },
+    runFilter: function () {
+      // need to change with
+      // https://gist.github.com/stomg7969/e4674d684271394fb049ff7a041cc5ed
+      if (this.filterValues.length > 0) {
+        console.log(this.filterValues)
+        this.$store.state.projectModule.projects = this.$store.state.projectModule.projects.filter((item) => {
+          for (let key in this.filterValues) {
+            if (item.key === undefined || item.key !== this.filterValues.key) {
+              return false
+            }
+            // console.log('item: ' + item.key)
+            console.log(key)
+          }
+          return true
+        })
+      }
+      // console.log(this.filterValues)
+      // console.log(this.$store.state.projectModule.projects)
+    }
+  },
+  /**
+   * Not working in firefox
+   * https://stackoverflow.com/questions/46120360/vuejs-event-not-working-in-firefox-fine-in-chrome
+   */
+  mounted () {
+    this.distinctAreas(this.$store.state.projectModule.projects)
+    this.distinctProfessions(this.$store.state.projectModule.projects)
+    this.distinctLocations(this.$store.state.projectModule.projects)
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

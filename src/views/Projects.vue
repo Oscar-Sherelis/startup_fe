@@ -37,6 +37,7 @@ import SortSection from '../components/SortSection.vue'
  *
  * Optional:
  * Make mobile
+ * https://stackoverflow.com/questions/48515023/display-different-vuejs-components-for-mobile-browsers/54617885
  */
 export default {
   name: 'projects',

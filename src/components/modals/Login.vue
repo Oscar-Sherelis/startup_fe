@@ -1,6 +1,5 @@
 <template>
   <div class="login">
-    <button id="login"  @click="show()">Login modal</button>
     <modal name="login-modal" adaptive="true" height="60%">
       <div class="modal-content">
         <div slot="top-right">
@@ -28,11 +27,6 @@ export default {
         email: '',
         password: ''
       }
-    }
-  },
-  methods: {
-    show () {
-      this.$modal.show('login-modal')
     }
   }
 }

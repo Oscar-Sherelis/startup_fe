@@ -7,7 +7,7 @@ export const projectModule = {
     addMessage: ''
   },
   getters: {},
-  mutations: {
+  mutations: {// Binary search visualization****
     SET_PROJECTS: (state, payload) => {
       state.projects = payload
     },
