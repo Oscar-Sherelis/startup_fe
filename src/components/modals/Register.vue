@@ -2,8 +2,7 @@
   <div class="register">
     <modals-container />
     <v-dialog />
-    <modal name="register-modal" adaptive="true" height="100%">
-      <span id="close">X</span>
+    <modal name="register-modal" adaptive=true height="100%">
       <div class="modal-content">
       <div slot="top-right">
         <button id="close" @click="$modal.hide('register-modal')">❌</button>
@@ -41,17 +40,6 @@ export default {
 </script>
 
 <style scoped>
-  #close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background-color: #fff;
-    border: none;
-    font-size: 32px;
-  }
-  #close:hover {
-    cursor: pointer;
-  }
   .modal-content {
     display: flex;
     justify-content: center;

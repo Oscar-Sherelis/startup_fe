@@ -1,6 +1,6 @@
 <template>
   <div class="login">
-    <modal name="login-modal" adaptive="true" height="60%">
+    <modal name="login-modal" adaptive=true height="60%">
       <div class="modal-content">
         <div slot="top-right">
           <button id="close" @click="$modal.hide('login-modal')">❌</button>
@@ -32,25 +32,6 @@ export default {
 }
 </script>
 <style scoped>
-  #close {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    background-color: #fff;
-    border: none;
-    font-size: 32px;
-  }
-
-  #close:hover {
-    cursor: pointer;
-  }
-  .modal-content {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100%;
-  }
-
   form {
     width: 90%;
     box-sizing: border-box;
@@ -71,5 +52,26 @@ export default {
     border-radius: 5px;
     color:rgb(7, 196, 16);
     background-color: #fff;
+  }
+</style>
+<style>
+/* style for all modals */
+  #close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: #fff;
+    border: none;
+    font-size: 32px;
+  }
+
+  #close:hover {
+    cursor: pointer;
+  }
+  .modal-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
   }
 </style>

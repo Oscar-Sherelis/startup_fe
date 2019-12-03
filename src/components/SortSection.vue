@@ -1,6 +1,6 @@
 <template>
   <div class="sort">
-      <h3>Sort By:</h3>
+      <h3>Sort {{ this.$store.state.projectModule.projects.length }} projects by:</h3>
       <form>
           <label>Project area
           <input type="radio" name="sort" @click="sortByArea()">
@@ -30,7 +30,6 @@ export default {
   }
 }
 </script>
-
 <style>
 .sort {
     width: 90%;

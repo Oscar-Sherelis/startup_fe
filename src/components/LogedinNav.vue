@@ -4,9 +4,10 @@
         <RegisterModal />
         <div class="nav-container">
             <div class="left-nav">
-                <router-link to="/register">Home</router-link> |
+                <router-link to="/home">Home</router-link> |
                 <router-link to="/projects">Projects</router-link>
             </div>
+            <!-- add v-if auth logedin nav v-else simple nav -->
             <div class="right-nav">
                 <button id="login" @click="showModal('login-modal')">Login</button>
                 <button id="register" @click="showModal('register-modal')">Register</button>
