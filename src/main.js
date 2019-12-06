@@ -13,6 +13,6 @@ Vue.use(VModal, { dynamic: true, dialog: true, injectModalsContainer: true })
 new Vue({
   router,
   store,
-  render: h => h(App),
-  mounted () { store.dispatch('COLLECT_PROJECTS') }
+  mounted () { store.dispatch('COLLECT_PROJECTS') },
+  render: h => h(App)
 }).$mount('#app')

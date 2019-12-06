@@ -1,10 +1,11 @@
 <template>
 <!-- *add modal as in projects -->
 <div class="user-projects projects-container">
+  <EditProject />
     <div class="project" v-for="project of $store.state.projectModule.userProjects" :key="project._id">
         <div class="project-photo">
             <div class="edit-buttons">
-                <span>Edit</span>
+                <span @click.prevent="$store.dispatch('COLLECT_PROJECT', project._id), showModal('edit-project-modal')">Edit</span>
                 <span @click.prevent="$store.dispatch('DELETE_PROJECT', project._id)">Delete</span>
             </div>
         </div>
@@ -26,9 +27,18 @@
 </div>
 </template>
 <script>
+import EditProject from '../components/modals/EditProject.vue'
 export default {
   mounted () {
     this.$store.dispatch('COLLECT_USER_PROJECTS', '5dd79f0d55a4e8125025f2be')
+  },
+  methods: {
+    showModal (modalName) {
+      this.$modal.show(modalName)
+    }
+  },
+  components: {
+    EditProject
   }
 }
 </script>

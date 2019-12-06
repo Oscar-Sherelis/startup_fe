@@ -34,8 +34,9 @@ export const projectModule = {
       const res = await axios.get('http://localhost:5000/project/' + payload)
       context.commit('SET_PROJECT', res.data.project)
     },
-    COLLECT_PROJECTS: async context => {
-      const res = await axios.get('http://localhost:5000/projects')
+    COLLECT_PROJECTS: async (context, payload) => {
+      const res = await axios.get('http://localhost:5000/projects/2/2')
+      // const res = await axios.get('http://localhost:5000/projects/5/1')
       context.commit('SET_PROJECTS', res.data.projects)
     },
     COLLECT_USER_PROJECTS: async (context, payload) => {

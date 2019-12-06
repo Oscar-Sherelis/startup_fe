@@ -6,7 +6,7 @@
           <div class="form-wrapper">
             <h3>Select filter criterias</h3>
           <form>
-              <select @change="takeOptionValue(selectedArea, projectArea, $event)">
+              <select @change="takeOptionValue($event)">
                 <option selected>Project area</option>
                 <option v-for="area of areas" :key="area.id" :value="area">{{ area }}</option>
               </select>
@@ -14,7 +14,7 @@
                 <option selected>Available positions</option>
                 <option v-for="profession of professions" :key="profession.id" :value="selectedProfession = profession">{{ profession }}</option>
               </select>
-              <select @change="takeOptionValue(selectedLocation, projectLocation, $event)">
+              <select @change="takeOptionValue(selectedLocation, $event)">
                 <option selected>Location</option>
                 <option v-for="location of locations" :key="location.id" :value="selectedLocation = location">{{ location }}</option>
               </select>
@@ -56,15 +56,21 @@ export default {
     distinctLocations: function (mainArr) {
       this.locations = [...new Set(mainArr.map(x => x.projectLocation))]
     },
-    takeOptionValue: function (dataProperty, objectProperty, event) {
-      dataProperty = event.target.value
-      this.filterValues.push({ objectProperty: dataProperty })
+    takeOptionValue: (event) => {
+      // why cannot see areas???
+      this.areas.forEach(value => {
+        if (value === event.target.value) {
+          this.$store.state.projectModule.projects = this.$store.state.projectModule.projects.filter((item) => { item = event.target.value })
+        }
+      })
+      // this.filterValues.push({ objectProperty: dataProperty })
     },
     runFilter: function () {
+      console.log(this.selectedArea)
       // need to change with
       // https://gist.github.com/stomg7969/e4674d684271394fb049ff7a041cc5ed
       if (this.filterValues.length > 0) {
-        console.log(this.filterValues)
+        // console.log(this.filterValues)
         this.$store.state.projectModule.projects = this.$store.state.projectModule.projects.filter((item) => {
           for (let key in this.filterValues) {
             if (item.key === undefined || item.key !== this.filterValues.key) {

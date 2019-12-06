@@ -5,7 +5,7 @@
     <Project />
     <div class="projects-container">
       <!-- maybe can start from 1 https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_slice_array -->
-      <div class="project" v-for="project of paginatedData()" :key="project._id" @click.prevent="$store.dispatch('COLLECT_PROJECT', project._id), showModal('project-modal')">
+      <div class="project" v-for="project of this.$store.state.projectModule.projects" :key="project._id" @click.prevent="$store.dispatch('COLLECT_PROJECT', project._id), showModal('project-modal')">
         <div class="project-photo"></div>
         <div class="description">
           <p class="project-area"><span>{{ project.projectArea }}</span></p>
@@ -27,7 +27,7 @@
       <button @click="prevPage()">
         <v-icon name="arrow-left"></v-icon>
       </button>
-      <span>{{ pageNumber }} of {{ allPages }}</span>
+      <span>{{ page }} of {{ allPages }}</span>
       <button @click="nextPage()">
         <v-icon name="arrow-right"></v-icon>
       </button>
@@ -60,8 +60,9 @@ export default {
   },
   data () {
     return {
-      pageNumber: 0, // default page 0
-      allPages: this.$store.state.projectModule.projects.length
+      page: 1, // default page 1
+      allPages: this.$store.state.projectModule.projects.length,
+      per: 5
     }
   },
   props: {
@@ -73,44 +74,45 @@ export default {
   },
   methods: {
     nextPage () {
-      if ((this.size * this.pageNumber) < this.$store.state.projectModule.projects.length) {
-        this.pageNumber++
-      } else if (((this.size * this.pageNumber) - this.$store.state.projectModule.projects.length) < this.size) {
-        this.pageNumber++
+      if ((this.size * this.page) < this.$store.state.projectModule.projects.length) {
+        this.page++
+      } else if (((this.size * this.page) - this.$store.state.projectModule.projects.length) < this.size) {
+        this.page++
       }
     },
     prevPage () {
-      if (this.pageNumber > 0) { this.pageNumber-- }
+      if (this.page > 1) { this.page-- }
     },
-    pageCount () {
-      let arrayLenght, s
-      arrayLenght = this.$store.state.projectModule.projects.length
-      s = this.size
-      return Math.ceil(arrayLenght / s)
-    },
-    paginatedData () {
-      const start = this.pageNumber * this.size
-      let end
-      end = start + this.size
-      return this.$store.state.projectModule.projects.slice(start, end)
-    },
-    numberOfPages () {
-      if (this.allPages % this.size < this.size && this.allPages % this.size !== 0) {
-        while (this.allPages % this.size !== 0) {
-          this.allPages++
-        }
-        this.allPages = this.allPages / this.size
-        return this.allPages
-      }
-    },
+    // pageCount () {
+    //   let arrayLenght, s
+    //   arrayLenght = this.$store.state.projectModule.projects.length
+    //   s = this.size
+    //   return Math.ceil(arrayLenght / s)
+    // },
+    // paginatedData () {
+    //   const start = this.page * this.size
+    //   let end
+    //   end = start + this.size
+    //   return this.$store.state.projectModule.projects.slice(start, end)
+    // },
+    // numberOfPages () {
+    //   if (this.allPages % this.size < this.size && this.allPages % this.size !== 0) {
+    //     while (this.allPages % this.size !== 0) {
+    //       this.allPages++
+    //     }
+    //     this.allPages = this.allPages / this.size
+    //     return this.allPages
+    //   }
+    // },
     // end of pagination
     showModal (modalName) {
       this.$modal.show(modalName)
     }
   },
   mounted () {
-    this.pageCount()
-    this.numberOfPages()
+    // this.pageCount()
+    // this.numberOfPages()
+    // console.log(this.methods) shows undefined
   }
 }
 </script>
