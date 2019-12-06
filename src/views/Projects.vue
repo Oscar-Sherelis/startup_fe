@@ -32,6 +32,12 @@
         <v-icon name="arrow-right"></v-icon>
       </button>
     </div>
+    <div class="per-page">
+      <select  @change="takeOptionValue($event)">
+        <option selected :value="5">5</option>
+        <option :value="10">10</option>
+      </select>
+    </div>
   </div>
 </template>
 <script>
@@ -83,6 +89,10 @@ export default {
     prevPage () {
       if (this.page > 1) { this.page-- }
     },
+    takeOptionValue: (event) => {
+      console.log(event.target.value)
+      // this.filterValues.push({ objectProperty: dataProperty })
+    },
     // pageCount () {
     //   let arrayLenght, s
     //   arrayLenght = this.$store.state.projectModule.projects.length
@@ -110,6 +120,7 @@ export default {
     }
   },
   mounted () {
+    this.$store.dispatch('COLLECT_PROJECTS')
     // this.pageCount()
     // this.numberOfPages()
     // console.log(this.methods) shows undefined
@@ -164,5 +175,8 @@ export default {
   .buttons button {
     background-color: #fff;
     border: none;
+  }
+  .per-page {
+    text-align: center;
   }
 </style>

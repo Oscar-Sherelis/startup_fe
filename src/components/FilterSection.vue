@@ -45,6 +45,7 @@ export default {
   methods: {
     distinctAreas: function (mainArr) {
       this.areas = [...new Set(mainArr.map(x => x.projectArea))]
+      console.log(this.areas)
     },
     distinctProfessions: function (mainArr) {
       let dataHolder = []
@@ -57,6 +58,8 @@ export default {
       this.locations = [...new Set(mainArr.map(x => x.projectLocation))]
     },
     takeOptionValue: (event) => {
+      console.log(event.target.value)
+      console.log(this.areas)
       // why cannot see areas???
       this.areas.forEach(value => {
         if (value === event.target.value) {
