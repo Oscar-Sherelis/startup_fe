@@ -4,7 +4,6 @@
     <SortSection />
     <Project />
     <div class="projects-container">
-      <!-- maybe can start from 1 https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_slice_array -->
       <div class="project" v-for="project of this.$store.state.projectModule.projects" :key="project._id" @click.prevent="$store.dispatch('COLLECT_PROJECT', project._id), showModal('project-modal')">
         <div class="project-photo"></div>
         <div class="description">
@@ -27,7 +26,7 @@
       <button @click="prevPage()">
         <v-icon name="arrow-left"></v-icon>
       </button>
-      <span>{{ page + 1 }} of {{  countedPages }}</span>
+      <span>{{ page + 1 }} of {{  Math.ceil(this.$store.state.projectModule.allPages / this.$store.state.projectModule.perPage) }}</span>
       <button @click="nextPage()">
         <v-icon name="arrow-right"></v-icon>
       </button>
@@ -48,10 +47,11 @@ import SortSection from '../components/SortSection.vue'
 import Project from '../components/modals/Project.vue'
 // Make:
 /**
- * Pagination not working properly
+ * Pagination working not properly, but good
  * model when click on project from main page, show all project data
  * sort DONE
  * filter
+ * delete done
  * add logeined page make, edit, delete projects
  *
  * Optional:
@@ -70,13 +70,6 @@ export default {
       page: 0, // default page 0
       per: 5, // show projects in one page
       countedPages: Math.ceil(this.$store.state.projectModule.allPages / this.$store.state.projectModule.perPage)
-    }
-  },
-  props: {
-    size: {
-      type: Number,
-      required: false,
-      default: 3
     }
   },
   methods: {
@@ -98,31 +91,6 @@ export default {
       this.$store.commit('SET_PER_PAGE', this.per)
       this.$store.dispatch('COLLECT_PROJECTS', this.$store.state.projectModule.perPage + '/' + this.$store.state.projectModule.page)
     },
-    // pagination, ask question about filter and why after mount cannot see loaded data***
-    takeOptionValue: () => {
-      // this.filterValues.push({ objectProperty: dataProperty })
-    },
-    // pageCount () {
-    //   let arrayLenght, s
-    //   arrayLenght = this.$store.state.projectModule.projects.length
-    //   s = this.size
-    //   return Math.ceil(arrayLenght / s)
-    // },
-    // paginatedData () {
-    //   const start = this.page * this.size
-    //   let end
-    //   end = start + this.size
-    //   return this.$store.state.projectModule.projects.slice(start, end)
-    // },
-    // numberOfPages () {
-    //   if (this.allPages % this.size < this.size && this.allPages % this.size !== 0) {
-    //     while (this.allPages % this.size !== 0) {
-    //       this.allPages++
-    //     }
-    //     this.allPages = this.allPages / this.size
-    //     return this.allPages
-    //   }
-    // },
     // end of pagination
     showModal (modalName) {
       this.$modal.show(modalName)
