@@ -27,16 +27,17 @@
       <button @click="prevPage()">
         <v-icon name="arrow-left"></v-icon>
       </button>
-      <span>{{ page }} of {{ allPages }}</span>
+      <span>{{ page + 1 }} of {{  countedPages }}</span>
       <button @click="nextPage()">
         <v-icon name="arrow-right"></v-icon>
       </button>
     </div>
     <div class="per-page">
-      <select  @change="takeOptionValue($event)">
-        <option selected :value="5">5</option>
-        <option :value="10">10</option>
+      <select v-model="per" @change="setPerPage()">
+        <option selected>5</option>
+        <option>10</option>
       </select>
+      <h1>{{ }}</h1>
     </div>
   </div>
 </template>
@@ -66,9 +67,9 @@ export default {
   },
   data () {
     return {
-      page: 1, // default page 1
-      allPages: this.$store.state.projectModule.projects.length,
-      per: 5
+      page: 0, // default page 0
+      per: 5, // show projects in one page
+      countedPages: Math.ceil(this.$store.state.projectModule.allPages / this.$store.state.projectModule.perPage)
     }
   },
   props: {
@@ -80,17 +81,25 @@ export default {
   },
   methods: {
     nextPage () {
-      if ((this.size * this.page) < this.$store.state.projectModule.projects.length) {
+      if ((this.page + 1) < (this.countedPages)) {
         this.page++
-      } else if (((this.size * this.page) - this.$store.state.projectModule.projects.length) < this.size) {
-        this.page++
+        this.$store.commit('SET_PAGE', this.page)
+        this.$store.dispatch('COLLECT_PROJECTS', this.$store.state.projectModule.perPage + '/' + this.$store.state.projectModule.page)
       }
     },
     prevPage () {
-      if (this.page > 1) { this.page-- }
+      if (this.page > 0) {
+        this.page--
+        this.$store.commit('SET_PAGE', this.page)
+        this.$store.dispatch('COLLECT_PROJECTS', this.$store.state.projectModule.perPage + '/' + this.$store.state.projectModule.page)
+      }
     },
-    takeOptionValue: (event) => {
-      console.log(event.target.value)
+    setPerPage () {
+      this.$store.commit('SET_PER_PAGE', this.per)
+      this.$store.dispatch('COLLECT_PROJECTS', this.$store.state.projectModule.perPage + '/' + this.$store.state.projectModule.page)
+    },
+    // pagination, ask question about filter and why after mount cannot see loaded data***
+    takeOptionValue: () => {
       // this.filterValues.push({ objectProperty: dataProperty })
     },
     // pageCount () {
@@ -118,12 +127,6 @@ export default {
     showModal (modalName) {
       this.$modal.show(modalName)
     }
-  },
-  mounted () {
-    this.$store.dispatch('COLLECT_PROJECTS')
-    // this.pageCount()
-    // this.numberOfPages()
-    // console.log(this.methods) shows undefined
   }
 }
 </script>

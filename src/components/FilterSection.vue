@@ -58,8 +58,6 @@ export default {
       this.locations = [...new Set(mainArr.map(x => x.projectLocation))]
     },
     takeOptionValue: (event) => {
-      console.log(event.target.value)
-      console.log(this.areas)
       // why cannot see areas???
       this.areas.forEach(value => {
         if (value === event.target.value) {
@@ -69,7 +67,8 @@ export default {
       // this.filterValues.push({ objectProperty: dataProperty })
     },
     runFilter: function () {
-      console.log(this.selectedArea)
+      console.log(this.areas)
+      // console.log(this.selectedArea)
       // need to change with
       // https://gist.github.com/stomg7969/e4674d684271394fb049ff7a041cc5ed
       if (this.filterValues.length > 0) {

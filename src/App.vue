@@ -13,6 +13,9 @@ export default {
   components: {
     LogedInNav,
     Footer
+  },
+  mounted () {
+    this.$store.dispatch('COLLECT_PROJECTS', this.$store.state.projectModule.perPage + '/' + this.$store.state.projectModule.page)
   }
 }
 </script>

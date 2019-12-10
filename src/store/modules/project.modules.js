@@ -4,7 +4,11 @@ export const projectModule = {
   state: {
     project: [],
     projects: [],
-    userProjects: []
+    userProjects: [],
+    // pagination
+    perPage: 5,
+    onPage: 0,
+    allPages: ''
     // message: '',
     // addMessage: ''
   },
@@ -19,9 +23,16 @@ export const projectModule = {
     SET_USER_PROJECTS: (state, payload) => {
       state.userProjects = payload
     },
-
     // Pagination
-
+    SET_PER_PAGE: (state, payload) => {
+      state.perPage = payload
+    },
+    SET_PAGE: (state, payload) => {
+      state.page = payload
+    },
+    SET_NUMBER_OF_PAGES: (state, payload) => {
+      state.allPages = payload
+    },
     // set success or error messages for HelloWorld.vue
     SET_MESSAGE: (state, payload) => {
       state.message = payload
@@ -38,10 +49,10 @@ export const projectModule = {
     },
     COLLECT_PROJECTS: async (context, payload) => {
       // make 2 sets for PER and PAGE
-      // and make params in front-end mount
-      const res = await axios.get('http://localhost:5000/projects/2/2')
-      // const res = await axios.get('http://localhost:5000/projects/5/1')
+      // and make params in front-end mount first from left per page second page number
+      const res = await axios.get('http://localhost:5000/projects/' + payload)
       context.commit('SET_PROJECTS', res.data.projects)
+      context.commit('SET_NUMBER_OF_PAGES', res.data.count)
     },
     COLLECT_USER_PROJECTS: async (context, payload) => {
       // take user id after auth and insert
